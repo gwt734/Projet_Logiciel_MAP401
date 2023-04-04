@@ -1,0 +1,27 @@
+chat :
+    dimentions : 250 140
+    nombre de segments : 880
+coq :
+    dimentions : 700 720
+    nombre de segments : 5386
+elephant :
+    dimentions : 800 700
+    nombre de segments : 5344
+gymnaste :
+    dimentions : 1056 1647
+    nombre de segments : 8784
+image_ex_poly :
+    dimentions : 4*4
+    nombre de segments : 18
+labyrinthe :
+    dimentions : 221 201
+    nombre de segments : 44000
+lettreZ :
+    dimentions : 600 1029
+    nombre de segments : 9396
+map401 :
+    dimentions : 830 300
+    nombre de segments : 8072
+tete :
+    dimentions : 1252 1252
+    nombre de segments : 8136
