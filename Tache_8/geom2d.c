@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "geom2d.h"
 
-#define PRECISION_EGALITE 0.0001
+#define PRECISION_EGALITE 0.00001
 
 Point set_point(double x,double y)
 {

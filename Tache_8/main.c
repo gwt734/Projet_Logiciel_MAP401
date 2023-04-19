@@ -28,8 +28,7 @@ int main(int argc, char **argv)
         Contour C_simplifie;
         if (deg == 1)
         {
-            Tableau_Point TC = sequence_points_liste_vers_tableau(C);
-            C_simplifie = simplification_douglas_peucker(TC, d);
+            C_simplifie = simplification_douglas_peucker(sous_sequence_points_liste(C, 0, C.taille - 1), d);
         }
         else if (deg == 2)
         {
