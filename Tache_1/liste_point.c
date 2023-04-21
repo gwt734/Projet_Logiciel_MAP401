@@ -256,6 +256,10 @@ void ecrire_contours_fichier(Liste_Contour L, char *nom_fichier)
     int k;
     int nC = L.taille;
     FILE *fichier = fopen(nom_fichier, "w");
+    if (fichier == NULL)
+    {
+        fprintf(stderr, "Erreur: ouverture du fichier %s impossible", nom_fichier);
+    }
     Cellule_Liste_Contour *el = L.first;
     fprintf(fichier, "%d\n\n", nC);
     for (int i = 0; i < nC; i++)

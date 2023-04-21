@@ -1,6 +1,8 @@
 #include "eps.h"
 #include "liste_point.h"
 #include <stdio.h>
+#include <string.h>
+#include "nom_fichiers.h"
 
 void ecrire_fichier_eps(Liste_Contour LC, unsigned int largeur, unsigned int hauteur, char *nom_fichier, Type_dessin type_dessin)
 {
