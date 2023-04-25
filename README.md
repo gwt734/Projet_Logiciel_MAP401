@@ -93,12 +93,27 @@
     - Avant_droit
     - Arriere_gauche
     - Arriere_droit
-
   - **nouvelle_orientation**
     La fonction prend en paramètre une image, une position et une orientation et renvoie la nouvelle orientation du robot.
     On utilise la fonction **get_pixel_relatif** pour vérifier la couleur des pixels environnant. On calcule alors la nouvelle orientation avec la fonction tourner.
 
+- **Ecriture du programme de test `test_calcul_contour.c`**
+  La fonction **calcul_contour** est appelée sur l'image dont le nom est passé en argument pour que l'on puisse observer le résultat obtenu
+- **Ajouts au fichier `Makefile`**
+  On ajoute les règles de compilation nécessaires pour compiler le programme `test_calcul_contour`.
+- **Exécution du programme de test et vérification des résultats**
+
 ## Manuel d'utilisation
+
+### Compilation
+
+Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale` et d'exécuter la commande `make`.
+
+### Dépendances
+
+![graph des dépendances du programme principal](Readme_files/Dependances_main.png)
+
+### Exécution
 
 ## Suivi du projet
 

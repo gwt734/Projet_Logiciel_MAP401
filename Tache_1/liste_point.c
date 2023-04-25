@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "liste_point.h"
-
+#include "geom2d.h"
 
 /* cr�er une cellule de liste avec l'�l�ment v
    renvoie le pointeur sur la cellule de liste cr��e
