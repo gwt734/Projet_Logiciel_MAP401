@@ -119,11 +119,11 @@ Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale`
 
 ### Diagramme de Gantt
 
-![Diagramme de Gantt](Readme_files/diagramme_de_Gantt.png)
+![Diagramme de Gantt](Readme_files/Diagramme_de_Gantt.png)
 
 ### Journal de bord
 
-![Journal de bord](Readme_files/JournalDeBord.png)
+![Journal de bord](Readme_files/Journal_de_Bord.png)
 
 ## Auteurs
 
