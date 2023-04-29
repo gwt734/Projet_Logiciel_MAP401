@@ -23,7 +23,7 @@ void decouper_liste_point(Liste_Point L, int i, Liste_Point *L1, Liste_Point *L2
     }
 }
 
-Contour simplification_douglas_peucker(Tableau_Point C, double d)
+Contour simplification_douglas_peucker_segments(Tableau_Point C, double d)
 {
     int n = C.taille-1;
     double dmax = 0;
@@ -55,8 +55,8 @@ Contour simplification_douglas_peucker(Tableau_Point C, double d)
 
         Contour L1 = creer_liste_Point_vide();
         Contour L2 = creer_liste_Point_vide();
-        L1 = simplification_douglas_peucker(T1, d);
-        L2 = simplification_douglas_peucker(T2, d);
+        L1 = simplification_douglas_peucker_segments(T1, d);
+        L2 = simplification_douglas_peucker_segments(T2, d);
         L = concatener_liste_Point(L1, L2);
     }
     return L;

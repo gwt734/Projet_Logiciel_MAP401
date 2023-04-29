@@ -28,7 +28,7 @@ int main(int argc, char **argv)
         Contour C_simplifie;
         if (deg == 1)
         {
-            C_simplifie = simplification_douglas_peucker(C, 0, C.taille - 1, d);
+            C_simplifie = simplification_douglas_peucker_segments(C, 0, C.taille - 1, d);
         }
         else if (deg == 2)
         {

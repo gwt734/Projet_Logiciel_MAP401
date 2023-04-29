@@ -30,7 +30,7 @@ int main(int argc, char **argv)
         if (deg == 1)
         {
             Tableau_Point TC = sequence_points_liste_vers_tableau(C);
-            C_simplifie = simplification_douglas_peucker(TC, d);
+            C_simplifie = simplification_douglas_peucker_segments(TC, d);
         }
         else if (deg == 2)
         {

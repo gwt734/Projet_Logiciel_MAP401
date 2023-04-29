@@ -1,7 +1,7 @@
 #include "liste_point.h"
 #include "geom2d.h"
 
-Contour simplification_douglas_peucker(Contour Cont, int j1, int j2, double d)
+Contour simplification_douglas_peucker_segments(Contour Cont, int j1, int j2, double d)
 {
     Tableau_Point C = sequence_points_liste_vers_tableau(Cont);
     double dmax = 0;
@@ -23,8 +23,8 @@ Contour simplification_douglas_peucker(Contour Cont, int j1, int j2, double d)
     }
     else
     {
-        Contour L1 = simplification_douglas_peucker(Cont, j1, k, d);
-        Contour L2 = simplification_douglas_peucker(Cont, k, j2, d);
+        Contour L1 = simplification_douglas_peucker_segments(Cont, j1, k, d);
+        Contour L2 = simplification_douglas_peucker_segments(Cont, k, j2, d);
         L = concatener_liste_Point(L1, L2);
     }
     return L;

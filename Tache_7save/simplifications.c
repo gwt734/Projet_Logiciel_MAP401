@@ -4,7 +4,17 @@
 #include <stdlib.h>
 #include <math.h>
 
-Contour simplification_douglas_peucker(Contour Cont, int j1, int j2, double d)
+/*
+ * Simplification de Douglas-Peucker
+
+ * Cont: contour à simplifier
+ * j1: indice du premier point du contour à simplifier
+ * j2: indice du dernier point du contour à simplifier
+ * d: distance maximale entre le point et la droite
+ *
+ * retourne: le contour simplifié
+ */
+Contour simplification_douglas_peucker_segments(Contour Cont, int j1, int j2, double d)
 {
     Tableau_Point C = sequence_points_liste_vers_tableau(Cont);
     double dmax = 0;
@@ -26,23 +36,44 @@ Contour simplification_douglas_peucker(Contour Cont, int j1, int j2, double d)
     }
     else
     {
-        Contour L1 = simplification_douglas_peucker(Cont, j1, k, d);
-        Contour L2 = simplification_douglas_peucker(Cont, k, j2, d);
+        Contour L1 = simplification_douglas_peucker_segments(Cont, j1, k, d);
+        Contour L2 = simplification_douglas_peucker_segments(Cont, k, j2, d);
         L = concatener_liste_Point(L1, L2);
     }
     return L;
 }
 
+/*
+ * Coefficient alpha de la méthode de simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 2
+
+ * n: nombre de points du contour à simplifier
+
+ * retourne: le coefficient alpha
+ */
 double alpha_2(double n)
 {
     return (3. * n) / (n * n - 1.);
 }
 
+/*
+ * Coefficient beta de la méthode de simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 2
+
+ * n: nombre de points du contour à simplifier
+
+ * retourne: le coefficient beta
+ */
 double beta_2(double n)
 {
     return (1. - 2. * n) / (2. * (n + 1.));
 }
 
+/*
+ * Approximation d'un contour par une courbe de Bézier de degré 2
+
+ * C: contour à approximer
+
+ * retourne: la courbe de Bézier approximée
+ */
 Bezier2 approx_bezier2(Contour C)
 {
     Bezier2 B;
@@ -70,6 +101,15 @@ Bezier2 approx_bezier2(Contour C)
     return B;
 }
 
+/*
+ * Sous-séquence d'un contour
+
+ * CONT: contour
+ * j1: indice du premier point de la séquence à extraire
+ * j2: indice du dernier point de la séquence à extraire
+ *
+ * retourne: la sous séquence
+ */
 Contour sous_sequence_points_liste(Contour CONT, int j1, int j2)
 {
     Contour L = creer_liste_Point_vide();
@@ -87,6 +127,16 @@ Contour sous_sequence_points_liste(Contour CONT, int j1, int j2)
     return L;
 }
 
+/*
+ * Simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 2
+
+ * CONT: contour à simplifier
+ * j1: indice du premier point du contour à simplifier
+ * j2: indice du dernier point du contour à simplifier
+ * d: distance maximale entre le point et la droite
+ *
+ * retourne: le contour simplifié
+ */
 Contour simplification_douglas_peucker_bezier2(Contour CONT, int j1, int j2, double d)
 {
     int n = j2 - j1;
@@ -121,24 +171,53 @@ Contour simplification_douglas_peucker_bezier2(Contour CONT, int j1, int j2, dou
     return L;
 }
 
+/*
+ * Coefficient alpha de la méthode de simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 3
+ *
+ * n: nombre de points du contour à simplifier
+ *
+ * retourne: le coefficient alpha
+ */
 double alpha_3(int n)
 {
     double N = (double)(n);
     return (-15. * pow(N, 3.) + 5. * pow(N, 2.) + 2. * N + 4.) / (3. * (N + 2.) * (3. * pow(N, 2.) + 1.));
 }
 
+/*
+ * Coefficient beta de la méthode de simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 3
+ *
+ * n: nombre de points du contour à simplifier
+ *
+ * retourne: le coefficient beta
+ */
 double beta_3(int n)
 {
     double N = (double)(n);
     return (10. * pow(N, 3.) - 15. * pow(N, 2.) + N + 2.) / (3. * (N + 2.) * (3. * pow(N, 2.) + 1.));
 }
 
+/*
+ * Coefficient lambda de la méthode de simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 3
+ *
+ * n: nombre de points du contour à simplifier
+ *
+ * retourne: le coefficient lambda
+ */
 double lambda_3(int n)
 {
     double N = (double)(n);
     return (70. * N) / (3. * (pow(N, 2.) - 1.) * (pow(N, 2.) - 4.) * (3. * pow(N, 2.) + 1.));
 }
 
+/*
+ * Coefficient gamma de la méthode de simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 3
+ *
+ * k: indice du point du contour à simplifier
+ * n: nombre de points du contour à simplifier
+ *
+ * retourne: le coefficient gamma
+ */
 double gamma_3(int k, int n)
 {
     double K = (double)(k);
@@ -146,6 +225,13 @@ double gamma_3(int k, int n)
     return 6. * pow(K, 4.) - 8. * N * pow(K, 3.) + 6. * pow(K, 2.) - 4. * N * K + pow(N, 4.) + pow(N, 2.);
 }
 
+/*
+ * Approximation d'un contour par une courbe de Bézier de degré 3
+ *
+ * C: contour à approximer
+ *
+ * retourne: la courbe de Bézier approximée
+ */
 Bezier3 approx_bezier3(Contour C)
 {
     Bezier3 B;
@@ -183,6 +269,16 @@ Bezier3 approx_bezier3(Contour C)
     return B;
 }
 
+/*
+ * Simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 3
+ *
+ * CONT: contour à simplifier
+ * j1: indice du premier point du contour à simplifier
+ * j2: indice du dernier point du contour à simplifier
+ * d: distance maximale entre le point et la droite
+ *
+ * retourne: le contour simplifié
+ */
 Contour simplification_douglas_peucker_bezier3(Contour CONT, int j1, int j2, double d)
 {
     int n = j2 - j1;

@@ -13,7 +13,7 @@
  * 
  * retourne: le contour simplifié
  */
-Contour simplification_douglas_peucker(Tableau_Point C, double d);
+Contour simplification_douglas_peucker_segments(Tableau_Point C, double d);
 
 /*
  * Coefficient alpha de la méthode de simplification de Douglas-Peucker avec approximation par courbe de Bézier de degré 2

@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     while (Cell != NULL)
     {
         Contour C = Cell->data;
-        Contour C_simplifie = simplification_douglas_peucker(C, 0, C.taille - 1, d);
+        Contour C_simplifie = simplification_douglas_peucker_segments(C, 0, C.taille - 1, d);
         L_C_simplifie = ajouter_element_liste_Contour(L_C_simplifie, C_simplifie);
         Cell = Cell->suiv;
     }
