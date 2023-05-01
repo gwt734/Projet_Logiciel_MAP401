@@ -67,7 +67,19 @@ int main(int argc, char **argv)
     }
     sprintf(suffixe_a_ajouter + strlen(suffixe_a_ajouter), "_d=%.0f", d);
     creer_chemin_fichier_de_sortie(argv[1], "eps", suffixe_a_ajouter, chemin_complet_eps);
-    ecrire_fichier_eps_bezier3(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
+    
+    if (deg == 1)
+    {
+        ecrire_fichier_eps(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
+    }
+    else if (deg == 2)
+    {
+        ecrire_fichier_eps_bezier2(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
+    }
+    else if (deg == 3)
+    {
+        ecrire_fichier_eps_bezier3(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
+    }
 
     // Affichage nombre de contours et nombre total de segments
     printf("Nombre de contours : %d\n", L_C_simplifie.taille);

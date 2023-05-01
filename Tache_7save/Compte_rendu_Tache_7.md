@@ -223,7 +223,7 @@ double gamma_3(int k, int n)
 {
     double K = (double)(k);
     double N = (double)(n);
-    return 6. * pow(K, 4.) - 8. * N * pow(K, 3.) + 6. * pow(K, 2.) - 4. * N * K + pow(N, 4.) + pow(N, 2.);
+    return 6. * pow(K, 4.) - 8. * N * pow(K, 3.) + 6. * pow(K, 2.) - 4. * N * K + pow(N, 4.) - pow(N, 2.);
 }
 
 /*
