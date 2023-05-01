@@ -132,7 +132,14 @@ test_simplifications.o : test_simplifications.c simplifications.h geom2d.h liste
 	@echo "Compilation du module test_simplifications"
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
-		
+
+nom_fichiers.o: nom_fichiers.c nom_fichiers.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module nom_fichiers"
+	@echo "---------------------------------------------"
+	$(CC) -c $(COMPILOPTS) $<
+	
 ########################################################
 # regles explicites de creation des executables
 
@@ -158,14 +165,14 @@ exemple_sequence_point : exemple_sequence_point.o
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
 
-test_contour : test_contour.o calcul_contour.o image.o liste_point.o geom2d.o
+test_contour : test_contour.o calcul_contour.o image.o liste_point.o geom2d.o nom_fichiers.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
 
-test_eps : test_eps.o eps.o calcul_contour.o image.o liste_point.o geom2d.o
+test_eps : test_eps.o eps.o calcul_contour.o image.o liste_point.o geom2d.o nom_fichiers.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
@@ -179,7 +186,7 @@ test_distance_point_segment : test_distance_point_segment.o geom2d.o
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
 
-main : main.o simplifications.o image.o eps.o calcul_contour.o liste_point.o geom2d.o
+main : main.o simplifications.o image.o eps.o calcul_contour.o liste_point.o geom2d.o nom_fichiers.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
@@ -198,9 +205,16 @@ test_simplifications : test_simplifications.o simplifications.o geom2d.o liste_p
 # regles pour "nettoyer" le répertoire
 ########################################################
 
+clean_executables:
+	rm -fR $(EXECUTABLES)
 
-clean:
-	rm -fR $(EXECUTABLES) *.o 
+clean_objets:
+	rm -fR *.o
 
-clean_images:
-	rm -fR ../IMAGES/*.eps ../IMAGES/*.contour ../Images_Test/*.eps ../Images_Test/*.contour
+clean_eps:
+	rm -fR ../Sorties_eps/*
+
+clean_contours:
+	rm -fR ../Sorties_contours/*
+
+clean: clean_executables clean_objets clean_eps clean_contours
