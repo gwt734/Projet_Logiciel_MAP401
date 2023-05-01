@@ -9,14 +9,16 @@
 
 int main(int argc, char **argv)
 {
+    // Vérification du nombre d'arguments
     if (argc != 4)
     {
         fprintf(stderr, "Usage: %s <image.pbm> <distance d> <degre courbe de Bezier>\n", argv[0]);
         return 1;
     }
+
+    // Récupération des arguments
     Image I = lire_fichier_image(argv[1]);
     double d = atof(argv[2]);
-
     int deg = atoi(argv[3]);
 
     // Simplification des contours
@@ -49,6 +51,8 @@ int main(int argc, char **argv)
     ecrire_contours_fichier(L_C_simplifie, chemin_complet_contour);
 
     // Création du fichier eps
+
+    //      Préparation du nom du fichier de sortie
     Type_dessin type_dessin = FILL;
     char chemin_complet_eps[256];
     char suffixe_a_ajouter[32];
@@ -67,6 +71,7 @@ int main(int argc, char **argv)
     sprintf(suffixe_a_ajouter + strlen(suffixe_a_ajouter), "_d=%.0f", d);
     creer_chemin_fichier_de_sortie(argv[1], "eps", suffixe_a_ajouter, chemin_complet_eps);
 
+    //      Création du fichier
     if (deg == 1)
     {
         ecrire_fichier_eps(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
@@ -80,7 +85,7 @@ int main(int argc, char **argv)
         ecrire_fichier_eps_bezier3(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
     }
 
-    // Affichage nombre de contours et nombre total de segments
+    // Affichage nombre de contours et nombre total de segments/courbes
     printf("Nombre de contours : %d\n", L_C_simplifie.taille);
 
     if (deg == 1)
