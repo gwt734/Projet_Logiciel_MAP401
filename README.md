@@ -92,7 +92,7 @@
     - Avant_droit
     - Arriere_gauche
     - Arriere_droit
-    
+
   - `nouvelle_orientation`
     La fonction prend en paramètre une image, une position et une orientation et renvoie la nouvelle orientation du robot.
     On utilise la fonction `get_pixel_relatif` pour vérifier la couleur des pixels environnants. On calcule alors la nouvelle orientation avec la fonction `tourner`.
@@ -114,6 +114,16 @@ Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale`
 ![graph des dépendances du programme principal](Readme_files/Dependances_main.png)
 
 ### Exécution
+
+Pour simplifier une image il faut appeler la commande :
+
+> ./main <nom_de_l'image_de_départ> <distance_seuil> <degré>
+
+avec **<distance_seuil>** un `double` positif ou nul et **<degré>** :
+
+- 1 pour simplification par segment
+- 2 pour simplification par courbes de bézier de degré 2
+- 3 pour simplification par courbes de bézier de degré 3
 
 ## Suivi du projet
 
