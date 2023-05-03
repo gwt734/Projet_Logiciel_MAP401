@@ -23,9 +23,8 @@ void decouper_liste_point(Liste_Point L, int i, Liste_Point *L1, Liste_Point *L2
     }
 }
 
-Contour simplification_douglas_peucker_segments(Contour Cont, double d)
+Contour simplification_douglas_peucker_segments(Tableau_Point C, double d)
 {
-    Tableau_Point C = sequence_points_liste_vers_tableau(Cont);
     int n = C.taille-1;
     double dmax = 0;
     int k = 0;
@@ -46,11 +45,18 @@ Contour simplification_douglas_peucker_segments(Contour Cont, double d)
     }
     else
     {
+        Tableau_Point T1;
+        Tableau_Point T2;
+        T1.tab = C.tab;
+        T1.taille = k;
+
+        T2.tab = &(C.tab[k]);
+        T2.taille = C.taille - k;
+
         Contour L1 = creer_liste_Point_vide();
         Contour L2 = creer_liste_Point_vide();
-        decouper_liste_point(Cont, k, &L1, &L2);
-        L1 = simplification_douglas_peucker_segments(L1, d);
-        L2 = simplification_douglas_peucker_segments(L2, d);
+        L1 = simplification_douglas_peucker_segments(T1, d);
+        L2 = simplification_douglas_peucker_segments(T2, d);
         L = concatener_liste_Point(L1, L2);
     }
     return L;
@@ -166,7 +172,7 @@ double gamma_3(int k, int n)
 {
     double K = (double)(k);
     double N = (double)(n);
-    return 6. * pow(K, 4.) - 8. * N * pow(K, 3.) + 6. * pow(K, 2.) - 4. * N * K + pow(N, 4.) + pow(N, 2.);
+    return 6. * pow(K, 4.) - 8. * N * pow(K, 3.) + 6. * pow(K, 2.) - 4. * N * K + pow(N, 4.) - pow(N, 2.);
 }
 
 Bezier3 approx_bezier3(Contour C)

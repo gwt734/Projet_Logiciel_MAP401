@@ -8,7 +8,7 @@
 #include "types_macros.h"
 
 /* 
- Type enuméré Pixel équivalent au char avec BLANC=0 et NOIR=1
+ Type enumÃ©rÃ© Pixel Ã©quivalent au char avec BLANC=0 et NOIR=1
  */
 typedef enum {BLANC=0,NOIR=1} Pixel;
 
@@ -22,7 +22,7 @@ typedef struct Image_
 	Pixel* pointeur_vers_le_tableau_de_pixels; 
 } Image;
 
-/* création d'une image PBM de dimensions L x H avec tous les pixels blancs */
+/* crÃ©ation d'une image PBM de dimensions L x H avec tous les pixels blancs */
 Image creer_image(UINT L, UINT H);
 
 /* suppression de l'image I = *p_I*/
@@ -42,22 +42,22 @@ UINT largeur_image(Image I);
 /* renvoie la hauteur de l'image I */
 UINT hauteur_image(Image I);
 
-/* lire l'image dans le fichier nommé nom_f
+/* lire l'image dans le fichier nommÃ© nom_f
    s'il y a une erreur dans le fichier le programme s'arrete en affichant
    un message 
    version acceptant les fichiers avec 
    - ligne 1 : P1
-   - zero, une ou plusieurs lignes commençant toutes par #
-   - zero, un ou plusieurs séparateurs
+   - zero, une ou plusieurs lignes commenÃ©ant toutes par #
+   - zero, un ou plusieurs sÃ©parateurs
    - la largeur
-   - un ou plusieurs séparateurs
+   - un ou plusieurs sÃ©parateurs
    - la hauteur
-   - un ou plusieurs séparateurs
+   - un ou plusieurs sÃ©parateurs
    - les pixels de l'image
    */
 Image lire_fichier_image(char *nom_f);
 
-/* écrire l'image I à l'écran */
+/* Ã©crire l'image I Ã  l'Ã©cran */
 void ecrire_image(Image I);
 
 /* calculer l'image "negatif" de l'image I */

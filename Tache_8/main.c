@@ -2,6 +2,7 @@
 #include "eps.h"
 #include "calcul_contour.h"
 #include "image.h"
+#include "nom_fichiers.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -28,7 +29,8 @@ int main(int argc, char **argv)
         Contour C_simplifie;
         if (deg == 1)
         {
-            C_simplifie = simplification_douglas_peucker_segments(sous_sequence_points_liste(C, 0, C.taille - 1), d);
+            Tableau_Point TC = sequence_points_liste_vers_tableau(C);
+            C_simplifie = simplification_douglas_peucker_segments(TC, d);
         }
         else if (deg == 2)
         {
@@ -43,35 +45,40 @@ int main(int argc, char **argv)
     }
 
     // Création du fichier contour
-    char nom_fichier_contour[strlen(argv[1]) - 4 + 4 + strlen(argv[2]) + 8];
-    strcpy(nom_fichier_contour, argv[1]);
-    nom_fichier_contour[strlen(argv[1]) - 4] = '\0';
-    strcat(nom_fichier_contour, "_sdp");
-    strcat(nom_fichier_contour, argv[2]);
-    ecrire_contours_fichier(L_C_simplifie, strcat(nom_fichier_contour, ".contour"));
+    char chemin_complet_contour[256];
+    creer_chemin_fichier_de_sortie(argv[1], "contours", "", chemin_complet_contour);
+    ecrire_contours_fichier(L_C_simplifie, chemin_complet_contour);
 
     // Création du fichier eps
-    char nom_fichier_eps[strlen(argv[1]) - 4 + 4 + strlen(argv[2]) + 8];
-    strcpy(nom_fichier_eps, argv[1]);
-    nom_fichier_eps[strlen(argv[1]) - 4] = '\0';
     Type_dessin type_dessin = FILL;
-    strcat(nom_fichier_eps, "_sdp");
-    strcat(nom_fichier_eps, argv[2]);
-
+    char chemin_complet_eps[256];
+    char suffixe_a_ajouter[32];
     if (deg == 1)
     {
-        strcat(nom_fichier_eps, "_segment");
-        ecrire_fichier_eps(L_C_simplifie, largeur_image(I), hauteur_image(I), strcat(nom_fichier_eps, ".eps"), type_dessin);
+        strcpy(suffixe_a_ajouter, "_segments");
     }
     else if (deg == 2)
     {
-        strcat(nom_fichier_eps, "_b2");
-        ecrire_fichier_eps_bezier2(L_C_simplifie, largeur_image(I), hauteur_image(I), strcat(nom_fichier_eps, ".eps"), type_dessin);
+        strcpy(suffixe_a_ajouter, "_beziers2");
     }
     else if (deg == 3)
     {
-        strcat(nom_fichier_eps, "_b3");
-        ecrire_fichier_eps_bezier3(L_C_simplifie, largeur_image(I), hauteur_image(I), strcat(nom_fichier_eps, ".eps"), type_dessin);
+        strcpy(suffixe_a_ajouter, "_beziers3");
+    }
+    sprintf(suffixe_a_ajouter + strlen(suffixe_a_ajouter), "_d=%.0f", d);
+    creer_chemin_fichier_de_sortie(argv[1], "eps", suffixe_a_ajouter, chemin_complet_eps);
+    
+    if (deg == 1)
+    {
+        ecrire_fichier_eps(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
+    }
+    else if (deg == 2)
+    {
+        ecrire_fichier_eps_bezier2(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
+    }
+    else if (deg == 3)
+    {
+        ecrire_fichier_eps_bezier3(L_C_simplifie, largeur_image(I), hauteur_image(I), chemin_complet_eps, type_dessin);
     }
 
     // Affichage nombre de contours et nombre total de segments

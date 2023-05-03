@@ -12,8 +12,8 @@ int main (int argc, char ** argv)
     }
     Image I = lire_fichier_image(argv[1]);
     ecrire_image(I);
-    Image neg_I = negatif_image(I);
+    /*Image neg_I = negatif_image(I);
     ecrire_image(neg_I);
-    ecrire_image(I);
+    ecrire_image(I);*/
     return 0;
 }
