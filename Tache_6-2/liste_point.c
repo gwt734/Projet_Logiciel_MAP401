@@ -255,6 +255,7 @@ void ecrire_contours_fichier(Liste_Contour L, char *nom_fichier)
 {
     int k;
     int nC = L.taille;
+    int nombre_total_segments = 0;
     FILE *fichier = fopen(nom_fichier, "w");
     Cellule_Liste_Contour *el = L.first;
     fprintf(fichier, "%d\n\n", nC);
@@ -266,6 +267,7 @@ void ecrire_contours_fichier(Liste_Contour L, char *nom_fichier)
         if (fichier != NULL)
         {
             fprintf(fichier, "%d\n", nP - 1);
+            nombre_total_segments += nP - 1;
             for (k = 0; k < nP; k++)
             {
                 Point P = TP.tab[k]; /* r�cup�rer le point d'indice k */
@@ -282,5 +284,6 @@ void ecrire_contours_fichier(Liste_Contour L, char *nom_fichier)
         //free(TP.tab); /* supprimer le tableau de point TP */
         el = el->suiv;
     }
+    fprintf(fichier, "%d\n", nombre_total_segments);
     fclose(fichier);
 }
