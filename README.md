@@ -103,6 +103,41 @@
   On ajoute les règles de compilation nécessaires pour compiler le programme `test_calcul_contour`.
 - **Exécution du programme de test et vérification des résultats.**
 
+
+**IL MANQUE LA PARTIE 2**
+
+
+### Tâche 4
+
+#### Paquetage eps
+
+- **Écriture de la routine `ecrire_fichier_eps`**
+La fonction prend en paramètre une image, ses dimensions (largeur et hauteur), le nom du fichier .eps dans lequel l'image doit être écrite au format Post Script Encapsulé, ainsi que le type de dessin (`STROKE` ou `FILL`).
+L'image y est écrite en parcourant, cellule par cellule, chaque point du contour précédemment extrait.
+
+- **Ecriture du programme de test `test_eps.c`** Ce programme prend en argument une image et un mode de tracé ("stroke" ou "fill"). À partir d'un fichier image.pbm, ce programme crée le fichier image_<mode>.eps représentant la même image avec le mode de tracé choisi.
+
+- **Ajouts au fichier `Makefile`**
+  On ajoute les règles de compilation nécessaires pour compiler le programme `test_calcul_contour`.
+- **Exécution du programme de test et vérification des résultats.**
+
+  
+### Tâche 5
+
+#### Partie 1
+  
+Aucun fichier ajouté. Ajout du type Liste_Contour dans liste_point.h et des 5 dernières fonctions.
+Modification de calcul_contour.c avec les Liste_Contour.
+Mise à jour du test_contour.c
+  
+#### Partie 2  
+  
+Mise à jour de ecrire_fichier_eps dans eps.c. Mise à jour de test_eps avec le nouveau type.
+Calcul de nb_contour et nb_segment jsp où.
+  
+**FAIRE MANUEL POUR TACHE 5**
+  
+  
 ## Manuel d'utilisation
 
 ### Compilation
