@@ -254,6 +254,14 @@ Ainsi le programme peux fonctionner correctement et vite.
 
 Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale` (ou une tache spécifique) et d'exécuter la commande `make`.
 
+Afin de nettoyer les fichiers créés, le Makefile est pourvu de 4 commandes de nettoyage :
+- `clean_executables` permet de supprimer tous les fichiers éxecutables du répertoire courant.
+- `clean_objets` permet de supprimer tous les fichiers objets du répertoire courant.
+- `clean_eps` permet de supprimer tous les fichiers du dossier `Sorties_eps`.
+- `clean_contours` permet de supprimer tous les fichiers du dossier `Sorties_contours`.
+
+La commande `make clean` effectue les 4 commandes précédentes.
+
 ### Dépendances
 
 ![graph des dépendances du programme principal](Readme_files/Dependances_main.png)
@@ -290,7 +298,7 @@ Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale`
   L'image ainsi produite se trouvera dans le dossier `Sortie_eps` sous le nom : `<nom_de_l'image_de_départ>_sdp_segments_d=<distance_seuil>.eps`
   (sdp = simplification de Douglas-Peucker)
 
-- **Version finale / Tâche 7 / Tâche 8**
+- **Tâche 7 / Tâche 8 / Version finale**
 
   Pour simplifier une image, il faut appeler la commande :
 
