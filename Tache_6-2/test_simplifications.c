@@ -29,19 +29,19 @@ int main(int argc, char **argv)
     }
 
     // Création du fichier contour
-    char nom_fichier_contour[strlen(argv[1]) - 4 + 4 + strlen(argv[2]) + 8];
+    char nom_fichier_contour[512];
     strcpy(nom_fichier_contour, argv[1]);
     nom_fichier_contour[strlen(argv[1]) - 4] = '\0';
-    strcat(nom_fichier_contour, "_sdp");
+    strcat(nom_fichier_contour, "_sdp_segments_d=");
     strcat(nom_fichier_contour, argv[2]);
     ecrire_contours_fichier(L_C_simplifie, strcat(nom_fichier_contour, ".contour"));
 
     // Création du fichier eps
-    char nom_fichier_eps[strlen(argv[1]) - 4 + 4 + strlen(argv[2]) + 8];
+    char nom_fichier_eps[512];
     strcpy(nom_fichier_eps, argv[1]);
     nom_fichier_eps[strlen(argv[1]) - 4] = '\0';
     Type_dessin type_dessin = FILL;
-    strcat(nom_fichier_eps, "_sdp");
+    strcat(nom_fichier_eps, "_sdp_segments_d=");
     strcat(nom_fichier_eps, argv[2]);
     ecrire_fichier_eps(L_C_simplifie, largeur_image(I), hauteur_image(I), strcat(nom_fichier_eps, ".eps"), type_dessin);
 

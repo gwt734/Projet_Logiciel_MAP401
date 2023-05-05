@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+#define PRECISION_EGALITE 0.0001
+
 typedef struct Vecteur
 {
     double x, y; /*coordonnees*/
@@ -24,6 +26,12 @@ typedef struct Bezier3
 
 /*cree le point de coordonnées(x,y)*/
 Point set_point(double x, double y);
+
+/*cree le vecteur de coordonnées(x,y)*/
+Vecteur set_vect(double x, double y);
+
+/*somme V1+V2*/
+Vecteur add_vect(Vecteur V1, Vecteur V2);
 
 /*somme P1+P2*/
 Point add_point(Point P1, Point P2);

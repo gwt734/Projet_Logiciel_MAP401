@@ -75,6 +75,8 @@ Liste_Contour ajouter_element_liste_Contour(Liste_Contour L, Liste_Point v);
 
 Liste_Contour concatener_liste_Contour(Liste_Contour L1, Liste_Contour L2);
 
+Tableau_Contour sequence_contours_liste_vers_tableau(Liste_Contour L);
+
 void ecrire_contours_fichier(Liste_Contour L, char *nom_fichier);
 
 #endif

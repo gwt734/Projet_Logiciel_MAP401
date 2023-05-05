@@ -2,14 +2,9 @@
 
 ## Structure du projet
 
-### Fichiers
-
-- `README.md` : ce fichier
-- `Makefile` : fichier de compilation
-
 ### Répertoires
 
-- `Tache_n` : les fichiers sauvegardés à la fin de chaque tache
+- `Tache_<n>` : les fichiers sauvegardés à la fin de chaque tache
 - `Version_finale` : la version finale de ce projet
 - `Readme_files` : les fichiers utilisés pour la création du Readme
 - `Images_Test` : Les images créés durant le projet pour les tests
@@ -17,7 +12,7 @@
 - `Sorties_EPS` : Les fichiers EPS générés par les programmes
 - `Sorties_contours` : Les fichiers contours générés par les programmes
 
-### Structure des modules
+### Fichiers
 
 - `main` : programme principal qui extrait le contour d'une image donnée puis le simplifie et produit une sortie au format eps
 - `image` : module de manipulation d'images bitmap
@@ -25,9 +20,9 @@
 - `calcul_contour` : module de calculs de contour
 - `nom_fichier` : module de manipulation de nom et de chemins de fichier
 - `simplification` : module de simplification de contours qui contient les trois méthodes : par segments, courbes de bézier de degré 2 et 3
-- `test_X` : programme de test associé au module X
+- `test_X` : programme de test associé au module ou à la fonction X
 - `Makefile` : fichier de compilation
-- `scripts_bash` : scripts utilisés pour faciliter la soutenance
+- `<scripts_bash>` : scripts utilisés pour faciliter la soutenance et l'écrtiture des rapports.
 
 ## Processus de construction du projet
 
@@ -53,7 +48,7 @@
 - **Définition des types `Point` et `Vecteur`**
 - **Écriture de nombreuses routines** qui correspondent à des opérations mathématiques sur les points et les vecteurs
 - **Écriture du programme de test `test_geom2D.c`**
-<!--TODO : revoir le fichier de test et l'expliquer-->
+  Ce fichier teste  chaque fonction individuellement en vérifiant si le résultat obtenu en l'applicant a un exemple d'argument correspond à celui attendu.
 - **Ajouts au fichier `Makefile`**
   On ajoute les règles de compilation nécessaires pour compiler le module `test_geom2D`.
 - **Exécution du programme de test et vérification des résultats.**
@@ -108,7 +103,7 @@
 
 ##### Paquetage calcul_contour
 
-Pour passer d'une fonction qui écrivait à l'écran le contour à une qui retournait une liste de point, on a d'abord changé le prototype de la fonction de :
+Pour passer d'une fonction qui écrivait à l'écran le contour à une qui retournait une liste de points, on a d'abord changé le prototype de la fonction de :
 
 ```c
 void calcul_contour(Image I, Point p_depart);
@@ -120,14 +115,14 @@ void calcul_contour(Image I, Point p_depart);
 Liste_Point calcul_contour(Image I, Point p_depart);
 ```
 
-Il a fallut aussi créé la liste de point que l'on allait retourner. Ensuite, au lieu dafficher à l'écran avec :
+Il a aussi fallut créer la liste de points que l'on allait retourner. Ensuite, au lieu dafficher à l'écran avec :
 
 ```c
 printf("(%.0f,%.0f) ", p_robot.x, p_robot.y);
 ```
 
 On ajoutait le point à la liste de cette façon :
-  
+
 ```c
 L = ajouter_element_liste_Point(L,p_robot);
 ```
@@ -140,7 +135,7 @@ void ecrire_contour_fichier(Liste_Point L, char* nom_fichier);
 
 Cette procédure parcours la liste de points donnée et ecrit dans un fichier `.contour` chacun des points.
 
-Il a après fallu modifier légèrement le fichier test contour pour s'adapter à ses changements
+Il a après fallu modifier légèrement le fichier test_contour pour s'adapter à ces changements.
 
 ### Tâche 4
 
@@ -150,46 +145,94 @@ Il a après fallu modifier légèrement le fichier test contour pour s'adapter �
   La fonction prend en paramètre une image, ses dimensions (largeur et hauteur), le nom du fichier .eps dans lequel l'image doit être écrite au format Post Script Encapsulé, ainsi que le type de dessin (`STROKE` ou `FILL`).
   L'image y est écrite en parcourant, cellule par cellule, chaque point du contour précédemment extrait.
 
-- **Ecriture du programme de test `test_eps.c`** Ce programme prend en argument une image et un mode de tracé ("stroke" ou "fill"). À partir d'un fichier image.pbm, ce programme crée le fichier image_\<mode\>.eps représentant la même image avec le mode de tracé choisi.
+- **Ecriture du programme de test `test_eps.c`** Ce programme prend en argument une image et un mode de tracé ("stroke" ou "fill"). À partir d'un fichier image.pbm, ce programme crée le fichier image\_\<mode\>.eps représentant la même image avec le mode de tracé choisi.
 
 - **Ajouts au fichier `Makefile`**
-  On ajoute les règles de compilation nécessaires pour compiler le programme `test_calcul_contour`.
+  On ajoute les règles de compilation nécessaires pour compiler le programme `test_eps`.
 - **Exécution du programme de test et vérification des résultats.**
 
 ### Tâche 5
 
 #### Partie 1
 
-Aucun fichier ajouté. Ajout du type Liste_Contour dans liste_point.h et des 5 dernières fonctions.
-Modification de calcul_contour.c avec les Liste_Contour.
-Mise à jour du test_contour.c
+- **Ajout du type `Liste_Contour` et des types associés**
+  Ce type permet la manipulation de listes de contours (listes de listes de points). Pour ce faire, nous avons également ajouté les types `Cellule_Liste_Contour` et `Tableau_Contour` contenant respectivement un contour sous forme de cellule de liste chainée, et une liste de contours sous forme de tableau.
+
+- **Ajout de plusieurs fonctions élémentaires de manipulation de listes de contours**
+  Afin de manipuler plus facilement ce nouveau type, nous nous sommes inspirés des fonctions de la Tâche 3 et avons ajouté des routines permettant de créer un élément, créer une liste, ajouter un élément à une liste, concaténer 2 listes et transformer une liste de contours en tableau de contours.
+
+- **Mise à jour de la fonction `calcul_contour`** de la tâche 3 pour qu'elle retourne désormais une liste de contours. Pour ce faire, nous avons suivi l'algorithme consistant à créer une image masque (grâce à la fonction `creer_masque` de `calcul_contour.c`) que l'on parcourt à la recherche de nouveaux contours.
+
+- **Mise à jour du programme de test `test_contour.c`**
+  Ce programme prend en argument une image, en extrait tous les contours et les écrit dans le fichier .contour grâce à la fonction `ecrire_contours_fichier`, adaptation de la fonction de la tâche 3 à un ensemble de contours. Ce programme de test affiche à l'écran le nombre de contours et le nombre de segments.
+
+- **Exécution du programme de test et vérification des résultats.**
 
 #### Partie 2
 
 Mise à jour de ecrire_fichier_eps dans eps.c. Mise à jour de test_eps avec le nouveau type.
 Calcul de nb_contour et nb_segment jsp où.
 
-**FAIRE MANUEL POUR TACHE 5**
+- **Mise à jour de la fonction `ecrire_fichier_eps`** de la tâche 4 pour qu'elle prenne en argument une liste de contours au lieu d'un contour. Nous avons ainsi utilisé la fonction `moveto` entre chaque contour (liste de points reliés par la fonction `lineto`).
+
+- **Mise à jour du programme de test `test_eps`** de la tâche 4 afin que l'ensemble des contours d'une image soit écrit au format EPS, en gardant toujours le choix sur le mode de tracé.
+
+- **Exécution du programme de test et vérification des résultats.**
 
 ### Tâche 6
 
+#### Partie 1
+
+- **Ajout de la fonction `distance_point_segment`**
+  Cette fonction utilise simplement la fomrule du cours.
+- **Creation du programme qui calcule la distance entre le segment et le point donné**
+  Ce programme est très simple et attends 3 points en entrée standard et affiche la distance entre le segment formé des deux premiers points et le troisième.
+
+#### Partie 2
+
+- **Ajout de la fonction `simplification_douglas_peucker_segments`**
+  Ici on a simplement appliqué l'algorithme du cours.
+- **Création du programme `test_simplification`**
+  Ce programme extrait les contours de l'image donnée, les simplifit en appelant la fonction `simplification_douglas_peucker_segments` sur chacun d'entre eux et les stockent dans une nouvelle liste de contours.
+  Il y a ensuite des manipulations de chaines de caratères pour créer un nom pertinent pour les fichiers de sorties.
+  Ensuite, on écrit les contours simplifiés dans des fichiers .contour et .eps.
+  Enfin, on affiche à l'écran le nombre de contours et le nombre de segments.
+
 ### Tâche 7
+
+#### Partie 1
+
+- **Fonction `approx_bezier2`**
+  On a simplement appliqué l'algorithme du cours auquel on a apporté quelques modifications.
+  Au lieu de passer le contour complet et les indices de debut et de fin du contour etudié dans cet appel, on a décidé, pour des questions d'optimisations, de passer seulement le contour étudié dans cet appel.
+- **Fonction `simplification_douglas_peucker_bezier2`**
+  On a simplement appliqué l'algorithme du cours à l'exception de l'appel de approx_bezier2 qui se fait sur un sous séquence (calculée avec la fonction `sous_sequence_points_liste`)
+- **Fonction `sous_sequence_points_liste`**
+  Cette fonction prends un liste de points et deux indices. Elle retourne la séquence contenue entre ces deux indices.
+- **Fonctions `alpha_2` et `beta_2`**
+  Simple copie des fonctions $\alpha(n)$ et $\beta(n)$ présentée dans le cours
+- **Fonction `ecrire_fichier_eps_bezier2`**
+  La fonction convertit les 
+  
 
 ### Tâche 8
 
-Quand nous avons commencé à tester les images de la tâche 8, on s'est vite heurter à des problèmes. Appliquer la simplification sur des trop grosses images faisait planter le programme. En effet, la quantité de ram utilisée devenait si grande qu'elle dépassait ce qui était disponible sur nos machines.
-Le problème vient du fait qu'a chaque appel récursif, on créé un nouveau tableau à partir du contour.
-Notre première piste à été de donner a chaque appel récursif un contour déjà tronqué plutôt que de donner le contour entier et les indice de début et de fin. Cela à réduit un peu le nombre d'opérations mais n'a pas suffisamment affecté l'usage de la ram.
-La solution finale a été de passer au lieu du contour entier, un tableau de points qui correspond uniquement à la partie du contour à simplifier pour cet appel.
-Utiliser un tableau nous a alors permis d'utiliser le même espace mémoire a chaque appel. En effet pour passer un tableau de points, on créé un objet tableau (structure qui contient un pointeur vers le début du tableau et un int qui donne la longueur du tableau => cette structure prends peu de place), et on décale le pointeur de départ ou on réduit la taille pour passer seulement une partie du tableau sans avoir a recréé un espace pour tout les points.
-Cette technique permet de diminuer drastiquement l'utilisation de ram.
+Quand nous avons commencé à tester les images de la tâche 8, on s'est vite heurté à des problèmes. Appliquer la simplification sur des trop grosses images faisait planter le programme. En effet, la quantité de mémoire RAM utilisée devenait si grande qu'elle dépassait ce qui était disponible sur nos machines.
+Le problème vient du fait qu'à chaque appel récursif, on créait un nouveau tableau à partir du contour.
+
+Notre première piste a été de donner à chaque appel récursif un contour déjà tronqué plutôt que de donner le contour entier et les indice de début et de fin. Cela a réduit un peu le nombre d'opérations mais n'a pas suffisamment affecté l'usage de la mémoire RAM.
+
+La solution finale a été, au lieu de passer en paramètre un contour entier, de passer un tableau de points qui correspond uniquement à la partie du contour à simplifier pour cet appel.
+
+Utiliser un tableau nous a alors permis d'utiliser le même espace mémoire a chaque appel. En effet pour passer un tableau de points, on créé un objet tableau (structure qui contient un pointeur vers le début du tableau et un int qui donne la longueur du tableau => cette structure prends peu de place), et on décale le pointeur de départ ou on réduit la taille pour passer seulement une partie du tableau sans avoir à recréer un espace pour tout les points.
+Cette technique permet de diminuer drastiquement l'utilisation de mémoire RAM.
 Ainsi le programme peux fonctionner correctement et vite.
 
 ## Manuel d'utilisation
 
 ### Compilation
 
-Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale` et d'exécuter la commande `make`.
+Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale` (ou une tache spécifique) et d'exécuter la commande `make`.
 
 ### Dépendances
 
@@ -197,15 +240,56 @@ Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale`
 
 ### Exécution
 
-Pour simplifier une image il faut appeler la commande :
+- **Tâche 5**
 
-> ./main <nom_de_l'image_de_départ> <distance_seuil> <degré>
+  Pour convertir une image pbm en eps, il faut appeler la commande :
 
-avec **<distance_seuil>** un `double` positif ou nul et **<degré>** :
+  > ./test_eps <chemin_de_l'image_de_départ> <mode_de_tracé>
 
-- 1 pour simplification par segment
-- 2 pour simplification par courbes de bézier de degré 2
-- 3 pour simplification par courbes de bézier de degré 3
+  avec <mode_de_tracé> :
+
+  - "stroke" pour avoir seul le tracé des contours
+  - "fill" pour avoir le mode remplissage
+
+  L'image ainsi produite se trouvera dans le dossier IMAGES sous le nom `<nom_de_l'image_de_départ>_<mode_de_tracé>.eps`.
+
+  <br>
+
+  Pour extraire tous les contours d'une image et les sauvegarder dans un fichier texte, il faut exécuter la commande :
+   > ./test_contour <chemin_de_l'image_de_départ>
+
+  L'image ainsi produite se trouvera dans le dossier IMAGES sous le nom `<nom_de_l'image_de_départ>.contour` et seront affichés à l'écran le nombre de contours et de segments.
+
+- **Tâche 6**
+
+  Pour simplifier une image, il faut appeler la commande :
+
+  > ./test_simplifications <chemin_de_l'image_de_départ> <distance_seuil>
+
+  avec **<distance_seuil>** un `double` positif.
+  L'image ainsi produite se trouvera dans le dossier `Sortie_eps` sous le nom : `<nom_de_l'image_de_départ>_sdp_segments_d=<distance_seuil>.eps`
+  (sdp = simplification de Douglas-Peucker)
+
+- **Version finale / Tâche 7 / Tâche 8**
+
+  Pour simplifier une image, il faut appeler la commande :
+
+  > ./main <chemin_de_l'image_de_départ> <distance_seuil> <degré>
+
+  avec **<distance_seuil>** un `double` positif ou nul et **<degré>** :
+
+  - 0 pour l'image originale
+  - 1 pour simplification par segment
+  - 2 pour simplification par courbes de bézier de degré 2
+  - 3 pour simplification par courbes de bézier de degré 3
+
+  L'image ainsi produite se trouvera dans le dossier `Sortie_eps` sous le nom : `<nom_de_l'image_de_départ>_sdp_<degré>_d=<distance_seuil>.eps`
+  (sdp = simplification de Douglas-Peucker)
+  avec <degré> :
+
+  - segments
+  - beziers2
+  - beziers3
 
 ## Suivi du projet
 

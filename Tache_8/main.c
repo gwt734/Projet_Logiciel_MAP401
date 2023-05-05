@@ -55,15 +55,15 @@ int main(int argc, char **argv)
     char suffixe_a_ajouter[32];
     if (deg == 1)
     {
-        strcpy(suffixe_a_ajouter, "_segments");
+        strcpy(suffixe_a_ajouter, "_sdp_segments");
     }
     else if (deg == 2)
     {
-        strcpy(suffixe_a_ajouter, "_beziers2");
+        strcpy(suffixe_a_ajouter, "_sdp_beziers2");
     }
     else if (deg == 3)
     {
-        strcpy(suffixe_a_ajouter, "_beziers3");
+        strcpy(suffixe_a_ajouter, "_sdp_beziers3");
     }
     sprintf(suffixe_a_ajouter + strlen(suffixe_a_ajouter), "_d=%.0f", d);
     creer_chemin_fichier_de_sortie(argv[1], "eps", suffixe_a_ajouter, chemin_complet_eps);
