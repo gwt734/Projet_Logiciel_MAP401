@@ -170,10 +170,7 @@ Il a après fallu modifier légèrement le fichier test_contour pour s'adapter �
 
 #### Partie 2
 
-Mise à jour de ecrire_fichier_eps dans eps.c. Mise à jour de test_eps avec le nouveau type.
-Calcul de nb_contour et nb_segment jsp où.
-
-- **Mise à jour de la fonction `ecrire_fichier_eps`** de la tâche 4 pour qu'elle prenne en argument une liste de contours au lieu d'un contour. Nous avons ainsi utilisé la fonction `moveto` entre chaque contour (liste de points reliés par la fonction `lineto`).
+- **Mise à jour de la fonction `ecrire_fichier_eps`** de la tâche 4 pour qu'elle prenne en argument une liste de contours au lieu d'un contour. Nous avons ainsi utilisé la commande `moveto` entre chaque contour (liste de points reliés par la commande `lineto`).
 
 - **Mise à jour du programme de test `test_eps`** de la tâche 4 afin que l'ensemble des contours d'une image soit écrit au format EPS, en gardant toujours le choix sur le mode de tracé.
 
@@ -184,8 +181,8 @@ Calcul de nb_contour et nb_segment jsp où.
 #### Partie 1
 
 - **Ajout de la fonction `distance_point_segment`**
-  Cette fonction utilise simplement la fomrule du cours.
-- **Creation du programme qui calcule la distance entre le segment et le point donné**
+  Cette fonction utilise simplement la formule du cours.
+- **Création du programme qui calcule la distance entre le segment et le point donné**
   Ce programme est très simple et attends 3 points en entrée standard et affiche la distance entre le segment formé des deux premiers points et le troisième.
 
 #### Partie 2
@@ -208,23 +205,23 @@ Calcul de nb_contour et nb_segment jsp où.
   Au lieu de passer le contour complet et les indices de debut et de fin du contour etudié dans cet appel, on a décidé, pour des questions d'optimisations, de passer seulement le contour étudié dans cet appel.
 - **Fonction `simplification_douglas_peucker_bezier2`**
   
-  On a simplement appliqué l'algorithme du cours à l'exception de l'appel de approx_bezier2 qui se fait sur un sous séquence (calculée avec la fonction `sous_sequence_points_liste`)
+  On a simplement appliqué l'algorithme du cours à l'exception de l'appel de `approx_bezier2` qui se fait sur un sous séquence (calculée avec la fonction `sous_sequence_points_liste`).
 - **Fonction `sous_sequence_points_liste`**
   
   Cette fonction prends un liste de points et deux indices. Elle retourne la séquence contenue entre ces deux indices.
 
 - **Fonctions `alpha_2` et `beta_2`**
   
-  Simple copie des fonctions $\alpha(n)$ et $\beta(n)$ présentée dans le cours
+  Simple copie des fonctions $\alpha(n)$ et $\beta(n)$ présentées dans le cours.
 - **Fonction `ecrire_fichier_eps_bezier2`**
   
-  La fonction convertit les courbes de bezier de degré 2 en degré 3 (car le format eps n'accepte que des courbes de degré 3). Elle les écrit ensuite dans un fichier eps (en utilisant la commande `curveto`)
+  La fonction convertit les courbes de Bézier de degré 2 en degré 3 (car le format eps n'accepte que des courbes de degré 3). Elle les écrit ensuite dans un fichier eps (en utilisant la commande `curveto`).
 
 #### Partie 2
 
 - **Fonction `approx_bezier3`**
   
-  Ici on a procéder de la même façon que pour la partie 1 mais avec l'algo donné pour les courbes de degré 3.
+  Ici on a procédé de la même façon que pour la partie 1 mais avec l'algorithme donné pour les courbes de Bézier de degré 3.
 
 - **Fonction `simplification_douglas_peucker_bezier3`**
   
@@ -232,11 +229,11 @@ Calcul de nb_contour et nb_segment jsp où.
 
 - **Fonction `ecrire_fichier_eps_bezier3`**
   
-  Cette fonction est presque la même que `ecrire_fichier_eps_bezier2` au détail près qu'il n'y a pas besoin de procéder à une élévation de degré car on a déjà des courbes de degré 3
+  Cette fonction est presque la même que `ecrire_fichier_eps_bezier2` au détail près qu'il n'y a pas besoin de procéder à une élévation de degré car on a déjà des courbes de degré 3.
 
 - **Fonctions `alpha_3`, `beta_3`, `lambda_3` et `gamma_3`**
   
-  Simple copie des fonctions $\alpha(n)$, $\beta(n)$, $\lambda(n)$ et $\gamma(k,n)$ présentée dans le cours
+  Simple copie des fonctions $\alpha(n)$, $\beta(n)$, $\lambda(n)$ et $\gamma(k,n)$ présentées dans le cours.
   
 ### Tâche 8
 
@@ -274,14 +271,14 @@ Pour compiler le projet, il suffit de se placer dans le dossier `Version_finale`
   - "stroke" pour avoir seul le tracé des contours
   - "fill" pour avoir le mode remplissage
 
-  L'image ainsi produite se trouvera dans le dossier IMAGES sous le nom `<nom_de_l'image_de_départ>_<mode_de_tracé>.eps`.
+  L'image ainsi produite se trouvera dans le dossier `IMAGES` sous le nom `<nom_de_l'image_de_départ>_<mode_de_tracé>.eps`.
 
   <br>
 
   Pour extraire tous les contours d'une image et les sauvegarder dans un fichier texte, il faut exécuter la commande :
    > ./test_contour <chemin_de_l'image_de_départ>
 
-  L'image ainsi produite se trouvera dans le dossier IMAGES sous le nom `<nom_de_l'image_de_départ>.contour` et seront affichés à l'écran le nombre de contours et de segments.
+  L'image ainsi produite se trouvera dans le dossier `IMAGES` sous le nom `<nom_de_l'image_de_départ>.contour` et seront affichés à l'écran le nombre de contours et de segments.
 
 - **Tâche 6**
 
