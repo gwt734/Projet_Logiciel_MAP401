@@ -203,18 +203,41 @@ Calcul de nb_contour et nb_segment jsp où.
 #### Partie 1
 
 - **Fonction `approx_bezier2`**
+  
   On a simplement appliqué l'algorithme du cours auquel on a apporté quelques modifications.
   Au lieu de passer le contour complet et les indices de debut et de fin du contour etudié dans cet appel, on a décidé, pour des questions d'optimisations, de passer seulement le contour étudié dans cet appel.
 - **Fonction `simplification_douglas_peucker_bezier2`**
+  
   On a simplement appliqué l'algorithme du cours à l'exception de l'appel de approx_bezier2 qui se fait sur un sous séquence (calculée avec la fonction `sous_sequence_points_liste`)
 - **Fonction `sous_sequence_points_liste`**
+  
   Cette fonction prends un liste de points et deux indices. Elle retourne la séquence contenue entre ces deux indices.
+
 - **Fonctions `alpha_2` et `beta_2`**
+  
   Simple copie des fonctions $\alpha(n)$ et $\beta(n)$ présentée dans le cours
 - **Fonction `ecrire_fichier_eps_bezier2`**
-  La fonction convertit les 
   
+  La fonction convertit les courbes de bezier de degré 2 en degré 3 (car le format eps n'accepte que des courbes de degré 3). Elle les écrit ensuite dans un fichier eps (en utilisant la commande `curveto`)
 
+#### Partie 2
+
+- **Fonction `approx_bezier3`**
+  
+  Ici on a procéder de la même façon que pour la partie 1 mais avec l'algo donné pour les courbes de degré 3.
+
+- **Fonction `simplification_douglas_peucker_bezier3`**
+  
+  De même pour cette fonction.
+
+- **Fonction `ecrire_fichier_eps_bezier3`**
+  
+  Cette fonction est presque la même que `ecrire_fichier_eps_bezier2` au détail près qu'il n'y a pas besoin de procéder à une élévation de degré car on a déjà des courbes de degré 3
+
+- **Fonctions `alpha_3`, `beta_3`, `lambda_3` et `gamma_3`**
+  
+  Simple copie des fonctions $\alpha(n)$, $\beta(n)$, $\lambda(n)$ et $\gamma(k,n)$ présentée dans le cours
+  
 ### Tâche 8
 
 Quand nous avons commencé à tester les images de la tâche 8, on s'est vite heurté à des problèmes. Appliquer la simplification sur des trop grosses images faisait planter le programme. En effet, la quantité de mémoire RAM utilisée devenait si grande qu'elle dépassait ce qui était disponible sur nos machines.
