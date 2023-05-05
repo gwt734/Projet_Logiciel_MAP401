@@ -171,6 +171,20 @@ Calcul de nb_contour et nb_segment jsp où.
 
 **FAIRE MANUEL POUR TACHE 5**
 
+### Tâche 6
+
+### Tâche 7
+
+### Tâche 8
+
+Quand nous avons commencé à tester les images de la tâche 8, on s'est vite heurter à des problèmes. Appliquer la simplification sur des trop grosses images faisait planter le programme. En effet, la quantité de ram utilisée devenait si grande qu'elle dépassait ce qui était disponible sur nos machines.
+Le problème vient du fait qu'a chaque appel récursif, on créé un nouveau tableau à partir du contour.
+Notre première piste à été de donner a chaque appel récursif un contour déjà tronqué plutôt que de donner le contour entier et les indice de début et de fin. Cela à réduit un peu le nombre d'opérations mais n'a pas suffisamment affecté l'usage de la ram.
+La solution finale a été de passer au lieu du contour entier, un tableau de points qui correspond uniquement à la partie du contour à simplifier pour cet appel.
+Utiliser un tableau nous a alors permis d'utiliser le même espace mémoire a chaque appel. En effet pour passer un tableau de points, on créé un objet tableau (structure qui contient un pointeur vers le début du tableau et un int qui donne la longueur du tableau => cette structure prends peu de place), et on décale le pointeur de départ ou on réduit la taille pour passer seulement une partie du tableau sans avoir a recréé un espace pour tout les points.
+Cette technique permet de diminuer drastiquement l'utilisation de ram.
+Ainsi le programme peux fonctionner correctement et vite.
+
 ## Manuel d'utilisation
 
 ### Compilation
