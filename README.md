@@ -88,6 +88,7 @@
   - `get_pixel_relatif`
     La fonction prend en paramètre une image, un point, une orientation et une direction (relative) et renvoie la valeur du pixel dans cette direction.
     On a donc du définir le type `direction` qui contient 4 valeurs:
+
     - Avant_gauche
     - Avant_droit
     - Arriere_gauche
@@ -103,41 +104,73 @@
   On ajoute les règles de compilation nécessaires pour compiler le programme `test_calcul_contour`.
 - **Exécution du programme de test et vérification des résultats.**
 
+#### Partie 2
 
-**IL MANQUE LA PARTIE 2**
+##### Paquetage calcul_contour
 
+Pour passer d'une fonction qui écrivait à l'écran le contour à une qui retournait une liste de point, on a d'abord changé le prototype de la fonction de :
+
+```c
+void calcul_contour(Image I, Point p_depart);
+```
+
+à :
+
+```c
+Liste_Point calcul_contour(Image I, Point p_depart);
+```
+
+Il a fallut aussi créé la liste de point que l'on allait retourner. Ensuite, au lieu dafficher à l'écran avec :
+
+```c
+printf("(%.0f,%.0f) ", p_robot.x, p_robot.y);
+```
+
+On ajoutait le point à la liste de cette façon :
+  
+```c
+L = ajouter_element_liste_Point(L,p_robot);
+```
+
+On a aussi ajouté au paquetage liste_point la procédure :
+
+```c
+void ecrire_contour_fichier(Liste_Point L, char* nom_fichier);
+```
+
+Cette procédure parcours la liste de points donnée et ecrit dans un fichier `.contour` chacun des points.
+
+Il a après fallu modifier légèrement le fichier test contour pour s'adapter à ses changements
 
 ### Tâche 4
 
 #### Paquetage eps
 
 - **Écriture de la routine `ecrire_fichier_eps`**
-La fonction prend en paramètre une image, ses dimensions (largeur et hauteur), le nom du fichier .eps dans lequel l'image doit être écrite au format Post Script Encapsulé, ainsi que le type de dessin (`STROKE` ou `FILL`).
-L'image y est écrite en parcourant, cellule par cellule, chaque point du contour précédemment extrait.
+  La fonction prend en paramètre une image, ses dimensions (largeur et hauteur), le nom du fichier .eps dans lequel l'image doit être écrite au format Post Script Encapsulé, ainsi que le type de dessin (`STROKE` ou `FILL`).
+  L'image y est écrite en parcourant, cellule par cellule, chaque point du contour précédemment extrait.
 
-- **Ecriture du programme de test `test_eps.c`** Ce programme prend en argument une image et un mode de tracé ("stroke" ou "fill"). À partir d'un fichier image.pbm, ce programme crée le fichier image_<mode>.eps représentant la même image avec le mode de tracé choisi.
+- **Ecriture du programme de test `test_eps.c`** Ce programme prend en argument une image et un mode de tracé ("stroke" ou "fill"). À partir d'un fichier image.pbm, ce programme crée le fichier image_\<mode\>.eps représentant la même image avec le mode de tracé choisi.
 
 - **Ajouts au fichier `Makefile`**
   On ajoute les règles de compilation nécessaires pour compiler le programme `test_calcul_contour`.
 - **Exécution du programme de test et vérification des résultats.**
 
-  
 ### Tâche 5
 
 #### Partie 1
-  
+
 Aucun fichier ajouté. Ajout du type Liste_Contour dans liste_point.h et des 5 dernières fonctions.
 Modification de calcul_contour.c avec les Liste_Contour.
 Mise à jour du test_contour.c
-  
-#### Partie 2  
-  
+
+#### Partie 2
+
 Mise à jour de ecrire_fichier_eps dans eps.c. Mise à jour de test_eps avec le nouveau type.
 Calcul de nb_contour et nb_segment jsp où.
-  
+
 **FAIRE MANUEL POUR TACHE 5**
-  
-  
+
 ## Manuel d'utilisation
 
 ### Compilation
