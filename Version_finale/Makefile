@@ -201,47 +201,6 @@ test_simplifications : test_simplifications.o simplifications.o geom2d.o liste_p
 	$(CC) $^ $(LDOPTS) -o $@
 
 
-######################################################################
-#                              Soutenance                            #
-######################################################################
-
-attente_utilisateur= \
-	printf "\n\n\033[0;34m*************************************\n*\033[0m Appuyez sur ENTRÉE pour continuer \033[0;34m*\n*************************************\033[0m\n";\
-	read line;
-
-commandes= \
-	"make clean --no-print-directory"\
-	"make --no-print-directory"\
-	"./curiosity-test.sh"\
-	"./test_generation_terrains 20 25 25 0.5 terrains_alea2.txt"\
-	"cat terrains_alea2.txt"\
-	": graphiques"\
-	"./test_limites_des_programmes.sh"\
-	"./activer_desactiver_observateur.sh false true true false"\
-	"make --no-print-directory"\
-	": test observateur MA"\
-	"./activer_desactiver_observateur.sh true false false true"\
-	"make --no-print-directory"\
-	": test observateur GD"\
-	"./activer_desactiver_observateur.sh true false true false"\
-	"make --no-print-directory"\
-	": suite ?"
-
-soutenance:
-	@\
-	clear;\
-	printf "\n\033[0;34m*************************************\n\
-	*\033[0m Appuyez sur ENTRÉE pour commencer \033[0;34m*\
-	\n*************************************\033[0m\n";\
-	read line;\
-	for commande in $(commandes);\
-	do  printf "\033[0;34m ==>\033[0m \033[0;33m$$commande\033[0m \n\n" ;\
-	$$commande ;\
-	$(attente_utilisateur)\
-	done;\
-	printf "\033[0;34m ************************************************************\033[0m FIN \033[0;34m************************************************************\033[0m"
-
-
 
 ########################################################
 # regles pour "nettoyer" le répertoire

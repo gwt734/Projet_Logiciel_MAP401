@@ -51,14 +51,7 @@ int main(int argc, char **argv)
         Cell = Cell->suiv;
     }
 
-    // Création du fichier contour
-    char chemin_complet_contour[256];
-    creer_chemin_fichier_de_sortie(argv[1], "contours", "", chemin_complet_contour);
-    ecrire_contours_fichier(L_C_simplifie, chemin_complet_contour);
-
-    // Création du fichier eps
-    Type_dessin type_dessin = FILL;
-    char chemin_complet_eps[256];
+    // Création du suffixe à ajouter au nom du fichier
     char suffixe_a_ajouter[32];
     if (deg == 0)
     {
@@ -79,6 +72,15 @@ int main(int argc, char **argv)
         strcpy(suffixe_a_ajouter, "_sdp_beziers3");
         sprintf(suffixe_a_ajouter + strlen(suffixe_a_ajouter), "_d=%.0f", d);
     }
+
+    // Création du fichier contour
+    char chemin_complet_contour[256];
+    creer_chemin_fichier_de_sortie(argv[1], "contours", suffixe_a_ajouter, chemin_complet_contour);
+    ecrire_contours_fichier(L_C_simplifie, chemin_complet_contour);
+
+    // Création du fichier eps
+    Type_dessin type_dessin = FILL;
+    char chemin_complet_eps[256];
     creer_chemin_fichier_de_sortie(argv[1], "eps", suffixe_a_ajouter, chemin_complet_eps);
 
     if (deg == 1 || deg == 0)
