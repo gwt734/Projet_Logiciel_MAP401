@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     char chemin_complet[256];
     char suffixe_a_ajouter[32];
 
-    Type_dessin type_dessin;
+    Type_dessin type_dessin=FILL;
     if (strcmp(argv[2], "fill") == 0)
     {
         type_dessin = FILL;
@@ -29,6 +29,11 @@ int main(int argc, char **argv)
     {
         type_dessin = STROKE;
         strcpy(suffixe_a_ajouter, "_stroke");
+    }
+    else
+    {
+        fprintf(stderr, "Le type de tracé doit être \"fill\" ou \"stroke\".\n");
+        return 1;
     }
     
     creer_chemin_fichier_de_sortie(argv[1], "eps", suffixe_a_ajouter, chemin_complet);
