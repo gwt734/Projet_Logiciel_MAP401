@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     while (Cell != NULL)
     {
         Contour C = Cell->data;
-        nb_segments += ((C.taille - 1) / 2) + 1;
+        nb_segments += (C.taille - 1);
         Cell = Cell->suiv;
     }
     printf("Nombre de segments : %d\n", nb_segments);

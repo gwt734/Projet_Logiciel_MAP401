@@ -37,7 +37,7 @@ INCLUDEOPTS = -I$(INCDIR)
 COMPILOPTS = -g -Wall $(INCLUDEOPTS)
 
 # liste des executables
-EXECUTABLES = test_image test_geom2d exemple_sequence_point test_contour test_eps test_distance_point_segment main test_simplifications
+EXECUTABLES = test_image test_geom2d exemple_sequence_point test_contour test_eps test_distance_point_segment main test_simplifications afficher_image_pbm
 
 
 #############################################################################
@@ -139,6 +139,13 @@ nom_fichiers.o: nom_fichiers.c nom_fichiers.h
 	@echo "Compilation du module nom_fichiers"
 	@echo "---------------------------------------------"
 	$(CC) -c $(COMPILOPTS) $<
+
+afficher_image_pbm.o: afficher_image_pbm.c image.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module afficher_image_pbm"
+	@echo "---------------------------------------------"
+	$(CC) -c $(COMPILOPTS) $<
 		
 ########################################################
 # regles explicites de creation des executables
@@ -199,6 +206,73 @@ test_simplifications : test_simplifications.o simplifications.o geom2d.o liste_p
 	@echo "Creation de l'executable "$@
 	@echo "---------------------------------------------"
 	$(CC) $^ $(LDOPTS) -o $@
+
+afficher_image_pbm : afficher_image_pbm.o image.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ $(LDOPTS) -o $@
+
+
+######################################################################
+#                              Soutenance                            #
+######################################################################
+
+attente_utilisateur= \
+	printf "\n\n\033[0;34m*************************************\n*\033[0m Appuyez sur ENTRÉE pour continuer \033[0;34m*\n*************************************\033[0m\n";\
+	read line;
+
+commandes= \
+	"make clean --no-print-directory"\
+	"make --no-print-directory"\
+	\
+	"./afficher_image_pbm ../IMAGES/image1_poly.pbm"\
+	\
+	"./test_contour ../IMAGES/image1_poly.pbm"\
+	"cat ../Sorties_contours/image1_poly.contours"\
+	\
+	"./test_eps ../IMAGES/image1_poly.pbm fill"\
+	"cat ../Sorties_eps/image1_poly_fill.eps"\
+	"evince ../Sorties_eps/image1_poly_fill.eps"\
+	\
+	"./main ../IMAGES/Asterix3.pbm 0 0"\
+	"./main ../IMAGES/Asterix3.pbm 1 1"\
+	"./main ../IMAGES/Asterix3.pbm 3 1"\
+	"./main ../IMAGES/Asterix3.pbm 10 1"\
+	"./main ../IMAGES/Asterix3.pbm 1 2"\
+	"./main ../IMAGES/Asterix3.pbm 3 2"\
+	"./main ../IMAGES/Asterix3.pbm 10 2"\
+	"./main ../IMAGES/Asterix3.pbm 1 3"\
+	"./main ../IMAGES/Asterix3.pbm 3 3"\
+	"./main ../IMAGES/Asterix3.pbm 10 3"\
+	\
+	"tree ../Sorties_contours"\
+	\
+	"time -p ./main ../IMAGES/courbe_hilbert_10.pbm 0 1"\
+	\
+	"tycat ../Readme_files/Utilisation_Ram_avant_opti.png"\
+	"tycat ../Readme_files/Utilisation_Ram_apres_opti.png"\
+	\
+	"make clean --no-print-directory"
+
+
+	
+
+
+soutenance:
+	@\
+	clear;\
+	printf "\n\033[0;34m*************************************\n\
+	*\033[0m Appuyez sur ENTRÉE pour commencer \033[0;34m*\
+	\n*************************************\033[0m\n";\
+	read line;\
+	for commande in $(commandes);\
+	do  printf "\033[0;34m ==>\033[0m \033[0;33m$$commande\033[0m \n\n" ;\
+	$$commande ;\
+	$(attente_utilisateur)\
+	done;\
+	printf "\033[0;34m ************************************************************\033[0m FIN \033[0;34m************************************************************\033[0m"
 
 
 
